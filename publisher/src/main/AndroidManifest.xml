@@ -30,5 +30,6 @@
     </application>
     <queries>
         <package android:name="com.pjb.receiver1" />
+        <package android:name="com.pjb.receiver2" />
     </queries>
 </manifest>

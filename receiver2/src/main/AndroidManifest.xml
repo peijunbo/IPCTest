@@ -9,14 +9,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IPCTest">
         <service
-            android:name=".ReceiveService"
+            android:name=".ReceiveService2"
             android:enabled="true"
             android:exported="true">
 
         </service>
 
         <activity
-            android:name=".ReceiverActivity"
+            android:name=".ReceiverActivity2"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.IPCTest">
@@ -31,4 +31,5 @@
                 android:value="" />
         </activity>
     </application>
+
 </manifest>
