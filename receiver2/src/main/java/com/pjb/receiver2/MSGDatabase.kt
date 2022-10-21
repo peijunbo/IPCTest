@@ -2,6 +2,7 @@ package com.pjb.receiver2
 
 import android.content.Context
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Entity
 data class Message(
@@ -18,6 +19,8 @@ interface MessageDao {
     @Query("select * from Message")
     fun loadAllMessages(): List<Message>
 
+    @Query("select * from Message")
+    fun getMessagesFlow(): Flow<List<Message>>
     @Delete
     fun deleteMessage(message: Message)
 }
