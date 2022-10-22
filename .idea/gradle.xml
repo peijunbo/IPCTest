@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/publisher" />
             <option value="$PROJECT_DIR$/receiver1" />
             <option value="$PROJECT_DIR$/receiver2" />
+            <option value="$PROJECT_DIR$/receiver3" />
           </set>
         </option>
       </GradleProjectSettings>

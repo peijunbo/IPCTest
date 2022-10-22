@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.IPCTest"
-        tools:targetApi="31">
+        android:theme="@style/Theme.IPCTest">
+        <provider
+            android:name=".MessageProvider"
+            android:authorities="com.pjb.receiver3.provider"
+            android:enabled="true"
+            android:exported="true">
+
+        </provider>
+
         <activity
-            android:name=".MainActivity"
+            android:name=".ReceiverActivity3"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.IPCTest">
@@ -28,9 +32,5 @@
                 android:value="" />
         </activity>
     </application>
-    <queries>
-        <package android:name="com.pjb.receiver1" />
-        <package android:name="com.pjb.receiver2" />
-        <package android:name="com.pjb.receiver3" />
-    </queries>
+
 </manifest>

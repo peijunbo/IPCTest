@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'com.pjb.receiver2'
+    namespace 'com.pjb.receiver3'
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.pjb.receiver2"
+        applicationId "com.pjb.receiver3"
         minSdk 26
         targetSdk 32
         versionCode 1

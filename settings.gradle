@@ -16,3 +16,4 @@ rootProject.name = "IPCTest"
 include ':publisher'
 include ':receiver1'
 include ':receiver2'
+include ':receiver3'

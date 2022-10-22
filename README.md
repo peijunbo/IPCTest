@@ -11,3 +11,12 @@
 ## receiver2
 
 使用aidl接收消息
+
+用Flow更新UI
+
+## receiver3
+
+contentprovider接受信息
+
+用Flow更新UI
+

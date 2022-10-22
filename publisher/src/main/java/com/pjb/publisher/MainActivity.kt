@@ -3,6 +3,7 @@ package com.pjb.publisher
 import android.content.ComponentName
 import android.content.Intent
 import android.content.ServiceConnection
+import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
 import android.os.Message
@@ -18,6 +19,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.core.content.contentValuesOf
 import com.pjb.publisher.ui.Greeting
 import com.pjb.publisher.ui.theme.IPCTestTheme
 import com.pjb.receiver2.IRemoteService
@@ -41,6 +43,7 @@ class MainActivity : ComponentActivity() {
                     Greeting("Android",
                         onSendClick1 = {sendMessage1(text.value)},
                         onSendClick2 = {sendMessage2(text.value)},
+                        onSendClick3 = {sendMessage3(text.value)},
                         text=text
                     )
                 }
@@ -119,6 +122,15 @@ class MainActivity : ComponentActivity() {
     }
     private fun sendMessage2(text: String) {
         iRemoteService?.sendMessage(text)
+    }
+
+    /**
+     * 接收端3
+     */
+    private fun sendMessage3(text: String) {
+        val uri = Uri.parse("content://com.pjb.receiver3.provider/Message")
+        val values = contentValuesOf("content" to text)
+        contentResolver.insert(uri, values)
     }
 
     override fun onDestroy() {
