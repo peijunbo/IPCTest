@@ -18,7 +18,8 @@ interface MessageDao {
     fun insertMessage(msg: Message): Long
     @Query("select * from Message")
     fun loadAllMessages(): List<Message>
-
+    @Query("select * from Message where id is :id")
+    fun getMessageById(id: Long): List<Message>
     @Query("select * from Message")
     fun getMessagesFlow(): Flow<List<Message>>
     @Delete

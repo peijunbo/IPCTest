@@ -12,7 +12,7 @@
 
 使用aidl接收消息
 
-用Flow更新UI
+用Flow与Room更新UI
 
 ## receiver3
 

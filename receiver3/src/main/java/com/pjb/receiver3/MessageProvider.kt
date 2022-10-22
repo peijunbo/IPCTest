@@ -8,15 +8,29 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.net.Uri
 import android.util.Log
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 
 class MessageProvider : ContentProvider() {
     companion object {
         const val TAG = "MessageProvider"
+        private var hasNewMessage = false
+        private var newMessageId: Long = 0
+        val receiveFlow: Flow<Long> = flow {
+            while (true) {
+                if (hasNewMessage) {
+                    emit(newMessageId)
+                    hasNewMessage = false
+                }
+                delay(1000)
+            }
+        }.flowOn(Dispatchers.IO)
     }
-
     private val uriMatcher = UriMatcher(UriMatcher.NO_MATCH)
     private val messageAll = 0
-    private val messageItem = 1
     private lateinit var messageDatabase: MessageDatabase
     private lateinit var messageDao: MessageDao
 
@@ -35,11 +49,21 @@ class MessageProvider : ContentProvider() {
     override fun insert(uri: Uri, values: ContentValues?): Uri? {
         when (uriMatcher.match(uri)) {
             messageAll -> {
-                Log.d(TAG, "insert: $values")
-                var id: Long = 0
-                id = messageDao.insertMessage(
-                    Message(values?.get("content") as String)
-                )
+                val supportSQLiteDatabase = messageDatabase.openHelper.writableDatabase
+                val id: Long
+                try {
+                    supportSQLiteDatabase.beginTransaction()
+                    id = supportSQLiteDatabase.insert("Message", SQLiteDatabase.CONFLICT_NONE, values)
+                    supportSQLiteDatabase.setTransactionSuccessful()
+                } catch (e: Exception) {
+                    Log.e(TAG, "insert: error!")
+                    return null
+                } finally {
+                    supportSQLiteDatabase.endTransaction()
+                    Log.d(TAG, "insert: $values")
+                }
+                hasNewMessage = true
+                newMessageId = id
                 return ContentUris.withAppendedId(uri, id)
             }
             else -> {
